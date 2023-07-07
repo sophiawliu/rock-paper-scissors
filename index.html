@@ -53,17 +53,17 @@
                 // let losingChoice;
                 if (playerSelection === computerSelection) {
                     // return `it's a tie! you both chose ${playerSelection}!`
-                    return "tie"; // TIE
+                    return "tied"; // TIE
                 } else if (playerWinOrLose(playerSelection, computerSelection)) {
                     // result = "win";
                     // winningChoice = playerSelection;
                     // losingChoice = computerSelection;
-                    return "player"; // PLAYER WINS
+                    return "won"; // PLAYER WINS
                 } else {
                     // result = "lose";
                     // winningChoice = computerSelection;
                     // losingChoice = playerSelection;
-                    return "computer"; // COMPUTER WINS
+                    return "lost"; // COMPUTER WINS
                 }
                 // return `you ${result}! ${winningChoice} beats ${losingChoice}!`
             }
@@ -72,16 +72,18 @@
                 let playerScore = 0;
                 let computerScore = 0;
                 for (let i = 0; i < 5; i++) {
-                    let result = playRound(prompt("rock, paper, scissors?", getComputerChoice()));
-                    if (result === "tie") {
+                    playerSelection = prompt("rock, paper, scissors?");
+                    computerSelection = getComputerChoice();
+                    let result = playRound(playerSelection, computerSelection);
+                    if (result === "tied") {
                         playerScore++;
                         computerScore++;
-                    } else if (result === "player") {
+                    } else if (result === "won") {
                         playerScore++;
                     } else {
                         computerScore++;
                     }
-                    console.log(`YOU: ${playerScore} | COMPUTER: ${computerScore}`)
+                    console.log(`---------------------------------\n${playerSelection} vs. ${computerSelection}. you ${result}!\nYOU ${playerScore} | COMPUTER ${computerScore}`)
                 }
                 let finalResult = "";
                 if (playerScore > computerScore) {
@@ -91,7 +93,7 @@
                 } else {
                     finalResult = "TIED"
                 }
-                console.log(`You ${finalResult}! The final score was...\nYOU: ${playerScore} | COMPUTER: ${computerScore}`)
+                console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nYou ${finalResult}! The final score was...\nYOU: ${playerScore} | COMPUTER: ${computerScore}\n`)
             }
 
             game();
