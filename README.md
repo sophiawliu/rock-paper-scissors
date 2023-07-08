@@ -1,4 +1,4 @@
 # rockpaperscissors
 
-live site below!
+live site: 
 https://sophiawliu.github.io/rockpaperscissors/
