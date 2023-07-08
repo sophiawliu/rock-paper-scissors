@@ -4,34 +4,56 @@
     <head>
     <meta charset="UTF-8">
     <title>Rock Paper Scissors</title>
+
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: x-large;
+            text-align: center;
+            margin-top: 190px;
+        }
+        button {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: x-large;
+            padding: 20px 20px;
+            font-weight: bold;
+        }
+    </style>
+
     </head>
 
     <body>
+        <h5>play the computer. first to 5 points wins!</h5>
+        <h3>* rock, paper, scissors? *</h3>
+        <button id="rock-🪨">rock 🪨</button>
+        <button id="paper-📄">paper 📄</button>
+        <button id="scissors-✂️">scissors ✂️</button>
+        
         <script>
             function getRandomInt(max) {
                 return Math.floor(Math.random() * max);
             }
 
             function getComputerChoice() {
-                const choices = ['rock', 'paper', 'scissors'];
+                const choices = ['rock 🪨', 'paper 📄', 'scissors ✂️'];
                 return choices[getRandomInt(3)];
             }
             
             function determineWinner(p, c) { // p !== c
-                if (p === "rock") {
-                    if (c === "paper") {
+                if (p === "rock 🪨") {
+                    if (c === "paper 📄") {
                         return c;
                     } else {
                         return p;
                     }
-                } else if (p === "paper") {
-                    if (c === "rock") {
+                } else if (p === "paper 📄") {
+                    if (c === "rock 🪨") {
                         return p;
                     } else {
                         return c;
                     }
                 } else {
-                    if (c === "paper") {
+                    if (c === "paper 📄") {
                         return p;
                     } else {
                         return c;
@@ -53,51 +75,125 @@
                 // let losingChoice;
                 if (playerSelection === computerSelection) {
                     // return `it's a tie! you both chose ${playerSelection}!`
-                    return "tied"; // TIE
+                    return "TIED"; // TIE
                 } else if (playerWinOrLose(playerSelection, computerSelection)) {
                     // result = "win";
                     // winningChoice = playerSelection;
                     // losingChoice = computerSelection;
-                    return "won"; // PLAYER WINS
+                    return "WON"; // PLAYER WINS
                 } else {
                     // result = "lose";
                     // winningChoice = computerSelection;
                     // losingChoice = playerSelection;
-                    return "lost"; // COMPUTER WINS
+                    return "LOST"; // COMPUTER WINS
                 }
                 // return `you ${result}! ${winningChoice} beats ${losingChoice}!`
             }
 
             function game() {
+                const rockButton = document.querySelector("#rock-🪨");
+                const paperButton = document.querySelector("#paper-📄");
+                const scissorsButton = document.querySelector("#scissors-✂️");
+                
                 let playerScore = 0;
                 let computerScore = 0;
-                for (let i = 0; i < 5; i++) {
-                    playerSelection = prompt("rock, paper, scissors?");
+
+                function playRoundHelper(event) {
                     computerSelection = getComputerChoice();
-                    let result = playRound(playerSelection, computerSelection);
-                    if (result === "tied") {
+                    playerSelection = event.target.textContent;
+                    result = playRound(playerSelection, computerSelection);
+                    if (result === "TIED") {
                         playerScore++;
                         computerScore++;
-                    } else if (result === "won") {
+                        console.log(`---------------------------------\n${playerSelection} vs. ${computerSelection}. you ${result}!\nYOU ${playerScore} | COMPUTER ${computerScore}`)
+                    } else if (result === "WON") {
                         playerScore++;
+                        console.log(`---------------------------------\n${playerSelection} vs. ${computerSelection}. you ${result}!\nYOU ${playerScore} | COMPUTER ${computerScore}`)
                     } else {
                         computerScore++;
+                        console.log(`---------------------------------\n${playerSelection} vs. ${computerSelection}. you ${result}!\nYOU ${playerScore} | COMPUTER ${computerScore}`)
                     }
-                    console.log(`---------------------------------\n${playerSelection} vs. ${computerSelection}. you ${result}!\nYOU ${playerScore} | COMPUTER ${computerScore}`)
+                    var body = document.querySelector('body');
+                    document.body.removeChild(body.lastChild);
+                    if (playerScore == 5 && computerScore == 5) {
+                        rockButton.disabled = true;
+                        paperButton.disabled = true;
+                        scissorsButton.disabled = true;
+                        let h1 = document.createElement('h1');
+                        h1.style.cssText = "font-weight: bolder;"
+                        h1.textContent = "Y-YOU...TIED?";
+                        document.body.appendChild(h1);
+                        let h5 = document.createElement('h5');
+                        h5.style.cssText = "font-weight: bolder;"
+                        h5.textContent = `YOU == COMPUTER???`;
+                        document.body.appendChild(h5);
+                        let img = document.createElement('img');
+                        img.src = "meme.jpeg";
+                        img.style.cssText = "width: 200px; height: 150px; margin-bottom: 10px;";
+                        document.body.appendChild(img);
+                        let rematch = document.createElement('button');
+                        rematch.textContent = "REMATCH";
+                        rematch.style.cssText = "margin: 0 auto; display: block; alignfont-size: x-large; padding: 10px 15px; font-weight: bold;";
+                        rematch.addEventListener('click', function (e) {
+                            location.reload();
+                        });
+                        document.body.append(rematch);
+                    } else if (computerScore == 5) {
+                        rockButton.disabled = true;
+                        paperButton.disabled = true;
+                        scissorsButton.disabled = true;
+                        let h1 = document.createElement('h1');
+                        h1.style.cssText = "font-weight: bolder;"
+                        h1.textContent = "YOU LOST LMAO.💩";
+                        document.body.appendChild(h1);
+                        let h5 = document.createElement('h5');
+                        h5.style.cssText = "font-weight: bolder;"
+                        h5.textContent = `the final score was ${playerScore} to ${computerScore}.`;
+                        document.body.appendChild(h5);
+                        let rematch = document.createElement('button');
+                        rematch.textContent = "REMATCH";
+                        rematch.style.cssText = "font-size: x-large; padding: 10px 15px; font-weight: bold;";
+                        rematch.addEventListener('click', function (e) {
+                            location.reload();
+                        });
+                        document.body.append(rematch);
+                    } else if (playerScore == 5) {
+                        rockButton.disabled = true;
+                        paperButton.disabled = true;
+                        scissorsButton.disabled = true;
+                        let h1 = document.createElement('h1');
+                        h1.style.cssText = "font-weight: bolder; text-decoration: pink wavy underline;"
+                        h1.textContent = "YOU WON! YIPPEE!";
+                        document.body.appendChild(h1);
+                        let h5 = document.createElement('h5');
+                        h5.style.cssText = "font-weight: bolder;"
+                        h5.textContent = `the final score was ${playerScore} to ${computerScore}.`;
+                        document.body.appendChild(h5);
+                        let playAgainButton = document.createElement('button');
+                        playAgainButton.textContent = "play again";
+                        playAgainButton.style.cssText = "font-size: x-large; padding: 10px 15px; font-weight: bold;";
+                        playAgainButton.addEventListener('click', function (e) {
+                            location.reload();
+                        });
+                        document.body.append(playAgainButton);
+                    } else {
+                        let div = document.createElement('div');
+                        div.innerHTML = `<h3>${playerSelection} vs. ${computerSelection}.</h3>
+                                        <h3>you ${result} this round!</h3>
+                                        <h5>${playerScore} | COMPUTER: ${computerScore}</h5>`
+                        div.style.fontWeight = "bolder";
+                        document.body.appendChild(div);
+                    }
                 }
-                let finalResult = "";
-                if (playerScore > computerScore) {
-                    finalResult = "WON";
-                } else if (playerScore < computerScore) {
-                    finalResult = "LOST";
-                } else {
-                    finalResult = "TIED"
-                }
-                console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nYou ${finalResult}! The final score was...\nYOU: ${playerScore} | COMPUTER: ${computerScore}\n`)
+                rockButton.addEventListener('click', playRoundHelper);
+                paperButton.addEventListener('click', playRoundHelper);
+                scissorsButton.addEventListener('click', playRoundHelper);
             }
 
             game();
+
         </script>
+
     </body>
 
 </html>
