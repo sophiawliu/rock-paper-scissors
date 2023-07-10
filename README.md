@@ -1,2 +1,2 @@
-# Rock Paper Scissors vs. the Computer
+# Rock Paper Scissors
 ### live site: https://sophiawliu.github.io/rock-paper-scissors/
